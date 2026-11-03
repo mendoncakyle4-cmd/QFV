@@ -1,0 +1,4 @@
+# Files and directories to copy into newly created worktrees
+.env
+.env.local
+
