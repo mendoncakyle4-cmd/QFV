@@ -1,7 +1,22 @@
 {
   "permissions": {
-    "allow": [],
-    "deny": []
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(rm -rf *)",
+      "Bash(del /f *)"
+    ]
+  },
+  "model": "claude-opus-4-5",
+  "context": {
+    "autoInclude": ["CLAUDE.md", ".claude/rules/*.md"]
   }
 }
-
