@@ -13,7 +13,8 @@ import {
   Menu, 
   X,
   Atom,
-  HelpCircle
+  HelpCircle,
+  Eye
 } from 'lucide-react';
 import { ShareDialog } from '../dialogs/ShareDialog';
 
@@ -31,6 +32,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onOpenHelp }) => {
     { label: 'Explore', route: '/explore', icon: <Compass className="w-4 h-4" /> },
     { label: 'Experiments', route: '/experiments', icon: <FlaskConical className="w-4 h-4" /> },
     { label: 'Field Library', route: '/fields', icon: <Layers className="w-4 h-4" /> },
+    { label: 'Perspectives', route: '/perspectives', icon: <Eye className="w-4 h-4" /> },
     { label: 'Science', route: '/science', icon: <BookOpen className="w-4 h-4" /> },
     { label: 'My Lab', route: '/lab', icon: <Bookmark className="w-4 h-4" /> },
   ];
@@ -197,4 +199,3 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onOpenHelp }) => {
     </>
   );
 };
-

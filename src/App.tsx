@@ -13,9 +13,17 @@ import { VacuumPage } from './views/VacuumPage';
 import { InteractionsPage } from './views/InteractionsPage';
 import { SciencePage } from './views/SciencePage';
 import { MyLabPage } from './views/MyLabPage';
+import { PerspectivesLandingPage } from './views/perspectives/PerspectivesLandingPage';
+import { VedicPerspectiveView } from './views/perspectives/VedicPerspectiveView';
+import { TeslaPerspectiveView } from './views/perspectives/TeslaPerspectiveView';
+import { FaradayPerspectiveView } from './views/perspectives/FaradayPerspectiveView';
+import { MaxwellPerspectiveView } from './views/perspectives/MaxwellPerspectiveView';
+import { EinsteinPerspectiveView } from './views/perspectives/EinsteinPerspectiveView';
+import { BohmPerspectiveView } from './views/perspectives/BohmPerspectiveView';
+import { VQFTGView } from './views/perspectives/VQFTGView';
 
 export const App: React.FC = () => {
-  const { currentRoute } = useNavigationStore();
+  const { currentRoute, activeExperimentSlug } = useNavigationStore();
   const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   // Keyboard shortcut: '?' opens help dialog
@@ -29,6 +37,19 @@ export const App: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  const renderPerspectiveView = () => {
+    switch (activeExperimentSlug) {
+      case 'vedic':        return <VedicPerspectiveView />;
+      case 'tesla':        return <TeslaPerspectiveView />;
+      case 'faraday':      return <FaradayPerspectiveView />;
+      case 'maxwell':      return <MaxwellPerspectiveView />;
+      case 'einstein':     return <EinsteinPerspectiveView />;
+      case 'bohm':         return <BohmPerspectiveView />;
+      case 'vqftg':        return <VQFTGView />;
+      default:             return <PerspectivesLandingPage />;
+    }
+  };
 
   const renderCurrentView = () => {
     switch (currentRoute) {
@@ -52,6 +73,8 @@ export const App: React.FC = () => {
         return <SciencePage />;
       case '/lab':
         return <MyLabPage />;
+      case '/perspectives':
+        return renderPerspectiveView();
       default:
         return <LandingPage />;
     }
@@ -69,4 +92,3 @@ export const App: React.FC = () => {
     </div>
   );
 };
-
