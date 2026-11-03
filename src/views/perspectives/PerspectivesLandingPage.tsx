@@ -6,14 +6,9 @@ import { PerspectiveScaleToCosmos } from '../../components/perspectives/Perspect
 import { useNavigationStore } from '../../state/useNavigationStore';
 import { 
   Compass, 
-  ArrowRight, 
   Scale, 
   BookOpen, 
-  ShieldCheck, 
-  Sparkles, 
-  Filter,
-  CheckCircle2,
-  AlertCircle
+  ShieldCheck,
 } from 'lucide-react';
 
 export const PerspectivesLandingPage: React.FC = () => {
@@ -27,6 +22,10 @@ export const PerspectivesLandingPage: React.FC = () => {
 
   const handleSelectPerspective = (slug: string) => {
     navigate('/perspectives', slug);
+  };
+
+  const scrollToCollection = () => {
+    document.getElementById('collection-grid')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -43,7 +42,7 @@ export const PerspectivesLandingPage: React.FC = () => {
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-100 tracking-tight leading-[1.15]">
             One reality. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-light to-pink-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-pink-400">
               Many ways of seeing it.
             </span>
           </h1>
@@ -53,13 +52,14 @@ export const PerspectivesLandingPage: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <a
-              href="#collection-grid"
+            {/* Use button + JS scroll — NOT href="#..." which corrupts the hash router */}
+            <button
+              onClick={scrollToCollection}
               className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-navy-950 font-bold text-xs rounded-control flex items-center gap-2 transition-all shadow-instrument hover:shadow-active"
             >
               <Compass className="w-4 h-4" />
               <span>Explore the Perspectives</span>
-            </a>
+            </button>
 
             <button
               onClick={() => navigate('/perspectives', 'compare')}
@@ -83,7 +83,7 @@ export const PerspectivesLandingPage: React.FC = () => {
             <ShieldCheck className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-100 block mb-1 font-semibold uppercase tracking-wider text-[11px]">
-                Editorial Integrity & Scientific Guardrails
+                Editorial Integrity &amp; Scientific Guardrails
               </strong>
               <span>
                 These perspectives are not interchangeable theories. Some are philosophical or textual inquiries; others are historical scientific models; modern quantum field theory is a mathematical framework tested through physics. This experience explores their ideas and visual interpretations while keeping those differences visible.
@@ -108,7 +108,7 @@ export const PerspectivesLandingPage: React.FC = () => {
             {/* Category Filter Pills */}
             <div className="flex flex-wrap items-center gap-1.5 bg-navy-900 p-1 border border-navy-border rounded-control">
               {[
-                { id: 'all', label: 'All (8)' },
+                { id: 'all', label: 'All' },
                 { id: 'ancient-philosophy', label: 'Ancient Philosophy' },
                 { id: 'classical-physics', label: 'Classical Physics' },
                 { id: 'relativity', label: 'Relativity' },
@@ -118,7 +118,7 @@ export const PerspectivesLandingPage: React.FC = () => {
               ].map((btn) => (
                 <button
                   key={btn.id}
-                  onClick={() => setSelectedCategory(btn.id as any)}
+                  onClick={() => setSelectedCategory(btn.id as PerspectiveCategory | 'all')}
                   className={`px-3 py-1.5 rounded text-xs font-mono transition-colors ${
                     selectedCategory === btn.id
                       ? 'bg-navy-800 text-cyan-light border border-cyan-500/40'
@@ -173,7 +173,7 @@ export const PerspectivesLandingPage: React.FC = () => {
 
             {/* Layer B */}
             <div className="p-6 bg-navy-900 border border-navy-border rounded-panel flex flex-col gap-3">
-              <div className="w-9 h-9 rounded-lg bg-navy-800 border border-violet-500/40 flex items-center justify-center text-violet-light font-mono font-bold text-sm">
+              <div className="w-9 h-9 rounded-lg bg-navy-800 border border-violet-500/40 flex items-center justify-center text-violet-400 font-mono font-bold text-sm">
                 B
               </div>
               <h3 className="text-sm font-bold text-slate-100">2. The Visual Interpretation</h3>
@@ -201,4 +201,3 @@ export const PerspectivesLandingPage: React.FC = () => {
     </div>
   );
 };
-
