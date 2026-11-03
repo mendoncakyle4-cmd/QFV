@@ -10,7 +10,8 @@ export type AppRoute =
   | '/vacuum'
   | '/interactions'
   | '/science'
-  | '/lab';
+  | '/lab'
+  | '/perspectives';
 
 interface NavigationState {
   currentRoute: AppRoute;
@@ -23,7 +24,7 @@ export const useNavigationStore = create<NavigationState>((set) => {
   const initialHash = window.location.hash.replace('#', '') || '/';
   const validRoute: AppRoute = [
     '/', '/explore', '/experiments', '/experiments/frequency-lab',
-    '/fields', '/states', '/vacuum', '/interactions', '/science', '/lab'
+    '/fields', '/states', '/vacuum', '/interactions', '/science', '/lab', '/perspectives'
   ].includes(initialHash as AppRoute) ? (initialHash as AppRoute) : '/';
 
   // Listen for browser hash changes (for back/forward buttons)
@@ -36,6 +37,9 @@ export const useNavigationStore = create<NavigationState>((set) => {
       } else {
         set({ currentRoute: '/experiments', activeExperimentSlug: slug });
       }
+    } else if (nextHash.startsWith('/perspectives/')) {
+      const slug = nextHash.replace('/perspectives/', '');
+      set({ currentRoute: '/perspectives', activeExperimentSlug: slug });
     } else {
       set({ currentRoute: (nextHash as AppRoute) || '/', activeExperimentSlug: null });
     }
@@ -45,7 +49,10 @@ export const useNavigationStore = create<NavigationState>((set) => {
     currentRoute: validRoute,
     activeExperimentSlug: null,
     navigate: (route, experimentSlug) => {
-      if (experimentSlug) {
+      if (experimentSlug && route === '/perspectives') {
+        window.location.hash = `/perspectives/${experimentSlug}`;
+        set({ currentRoute: '/perspectives', activeExperimentSlug: experimentSlug });
+      } else if (experimentSlug) {
         window.location.hash = `/experiments/${experimentSlug}`;
         set({ currentRoute: '/experiments', activeExperimentSlug: experimentSlug });
       } else {
@@ -56,4 +63,3 @@ export const useNavigationStore = create<NavigationState>((set) => {
     },
   };
 });
-

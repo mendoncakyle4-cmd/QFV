@@ -6,7 +6,8 @@ export type VisualisationKind =
   | 'historical-reconstruction'
   | 'schematic-diagram'
   | 'interpretive-metaphor'
-  | 'cinematic-introduction';
+  | 'cinematic-introduction'
+  | 'data-driven-visualisation';
 
 export type EvidenceKind =
   | 'primary-source'
